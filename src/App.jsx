@@ -24,6 +24,11 @@ function App() {
 
       getUserMedia({ video: true, audio: true })
         .then((mediaStream) => {
+          const audioTracks = mediaStream.getAudioTracks();
+          audioTracks.forEach((track) => {
+            track.applyConstraints({ echoCancellation: true });
+          });
+
           setMediaStream(mediaStream);
 
           currentUserVideoRef.current.srcObject = mediaStream;
